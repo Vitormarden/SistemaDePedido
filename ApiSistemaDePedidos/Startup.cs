@@ -1,4 +1,6 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using ApiSistemaDePedidos.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace ApiSistemaDePedidos
 {
@@ -12,6 +14,10 @@ namespace ApiSistemaDePedidos
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefatulConnection"));
+            });
            services.AddControllersWithViews();
 
            services.AddSwaggerGen(c =>
